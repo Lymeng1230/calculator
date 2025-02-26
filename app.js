@@ -22,38 +22,22 @@ function clearEntry() {
 // Calculate the result
 function calculate() {
     try {
-        // Replace '^' with '**' for exponentiation
-        let expression = display.value.replace("^", "**");
-        // Evaluate the expression in the display
+        // Handle scientific functions like sin(), cos(), sqrt(), etc.
+        let expression = display.value;
+        
+        // Replace functions with JavaScript equivalents
+        expression = expression.replace(/sqrt\(/g, "Math.sqrt(");
+        expression = expression.replace(/\^/g, "**");
+        expression = expression.replace(/pi/g, "Math.PI");
+        expression = expression.replace(/e/g, "Math.E");
+
+        // Evaluate the expression
         display.value = eval(expression);
     } catch (error) {
-        display.value = 'Error'; // If the expression is invalid
+        display.value = 'fuck u it wrong'; // If the expression is invalid
     }
 }
 
-// Square Root function (√)
-function squareRoot() {
-    try {
-        let value = parseFloat(display.value);
-        if (value < 0) {
-            display.value = 'Error'; // Square root of a negative number is not a real number
-        } else {
-            display.value = Math.sqrt(value);
-        }
-    } catch (error) {
-        display.value = 'Error';
-    }
-}
-
-// Memory Add (M+)
-function memoryAdd() {
-    memory += parseFloat(display.value);
-}
-
-// Memory Subtract (M-)
-function memorySubtract() {
-    memory -= parseFloat(display.value);
-}
 
 // Memory Recall (MR)
 function memoryRecall() {
